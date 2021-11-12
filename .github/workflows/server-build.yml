@@ -1,0 +1,15 @@
+name: 🦁 Server Build
+'on':
+  workflow_dispatch: {}
+  push:
+    paths:
+      - 'game-server-race-control/**'
+defaults:
+  run:
+    working-directory: game-server-race-control
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
