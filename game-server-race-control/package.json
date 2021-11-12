@@ -13,7 +13,10 @@
   "author": "Jonas Voland",
   "license": "MIT",
   "dependencies": {
-    "colyseus": "^0.14.23"
+    "@colyseus/monitor": "^0.14.22",
+    "@colyseus/ws-transport": "^0.14.21",
+    "colyseus": "^0.14.23",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "ts-node-dev": "^1.1.8",
