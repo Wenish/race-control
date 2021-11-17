@@ -2,8 +2,13 @@ import http from 'http';
 import { Room, Client } from 'colyseus';
 import logger from '../services/logger.service';
 import { MatchState } from './match.state';
+import { Dispatcher } from '@colyseus/command';
+import { OnJoinCommand } from './commands/onJoin.command';
+import { OnLeaveCommand } from './commands/onLeave.command';
 
 export class MatchRoom extends Room<MatchState> {
+
+    dispatcher: Dispatcher = new Dispatcher(this);
 
     async onCreate(options: any) {
         const mapName: string = options?.map || 'rc_default'
@@ -23,10 +28,16 @@ export class MatchRoom extends Room<MatchState> {
     }
 
     onJoin(client: Client, options: any, auth: any) {
+        this.dispatcher.dispatch(new OnJoinCommand(), {
+            sessionId: client.sessionId
+        });
         logger(`onJoin Client: ${client.sessionId}`, 'GameRoom')
     }
 
     onLeave(client: Client, consented: boolean) {
+        this.dispatcher.dispatch(new OnLeaveCommand(), {
+            sessionId: client.sessionId
+        });
         logger(`onLeave Client with sessionId: ${client.sessionId} consented: ${consented}`, 'GameRoom')
     }
 
