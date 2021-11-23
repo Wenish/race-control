@@ -2,9 +2,9 @@
 
 ## [Server](https://github.com/Wenish/race-control/tree/main/game-server-race-control)
 
-[![.github/workflows/server-build.yml](https://github.com/Wenish/race-control/actions/workflows/server-build.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/server-build.yml)
+[![.github/workflows/game-server-build.yml](https://github.com/Wenish/race-control/actions/workflows/game-server-build.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/game-server-build.yml)
 
-[![🦁 Server Heroku Deploy](https://github.com/Wenish/race-control/actions/workflows/server-heroku-deploy.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/server-heroku-deploy.yml)
+[![🦁 Server Heroku Deploy](https://github.com/Wenish/race-control/actions/workflows/game-server-heroku-deploy.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/game-sserver-heroku-deploy.yml)
 
 Tech:
 
