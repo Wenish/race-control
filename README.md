@@ -1,6 +1,6 @@
 # Race Control
 
-## [Server](https://github.com/Wenish/race-control/tree/main/game-server-race-control)
+## [Game Server](https://github.com/Wenish/race-control/tree/main/game-server-race-control)
 
 [![.github/workflows/game-server-build.yml](https://github.com/Wenish/race-control/actions/workflows/game-server-build.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/game-server-build.yml)
 
