@@ -1,12 +1,12 @@
-name: 🦁 Server Build
+name: 🦁 API Build
 'on':
   workflow_dispatch: {}
   push:
     paths:
-      - 'game-server-race-control/**'
+      - 'api-race-control/**'
 defaults:
   run:
-    working-directory: game-server-race-control
+    working-directory: api-race-control
 jobs:
   build:
     runs-on: ubuntu-latest
