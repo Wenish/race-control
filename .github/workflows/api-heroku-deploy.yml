@@ -1,4 +1,4 @@
-name: 🦁 Game Server Heroku Deploy
+name: 🦁 API Heroku Deploy
 'on':
   workflow_dispatch: {}
   push:
