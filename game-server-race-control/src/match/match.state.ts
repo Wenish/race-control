@@ -16,11 +16,19 @@ export class PlayerState extends Schema {
 export class FuelTankState extends Schema {
     @type('number') currentLoad: number = 750;
     @type('number') maxLoad: number = 1000;
+
+    
+    @type('number') currentHelth: number = 10000;
+    @type('number') maxHealth: number = 10000;
 }
 
 export class MotorState extends Schema {
     @type('number') power: number = 15
     @type('number') consumption: number = 1
+
+    
+    @type('number') currentHelth: number = 100;
+    @type('number') maxHealth: number = 100;
 }
 
 export class TiresState extends Schema {
@@ -29,16 +37,21 @@ export class TiresState extends Schema {
 
     @type('number') grip: number = 100;
     @type('number') consumption: number = 1;
-    
 }
 
 export class BrakeState extends Schema {
     @type('number') power: number = 10
+
+    @type('number') currentHelth: number = 100;
+    @type('number') maxHealth: number = 100;
 }
 
 export class WingState extends Schema {
     @type('number') drag: number = 5
     @type('number') downForce: number = 5
+    
+    @type('number') currentHelth: number = 100;
+    @type('number') maxHealth: number = 100;
 }
 
 export class CarState extends Schema {
