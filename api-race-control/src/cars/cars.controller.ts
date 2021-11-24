@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, NotFoundException } from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ObjectID } from 'typeorm';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
-import { UpdateCarDto } from './dto/update-car.dto';
+import { Car } from './entities/car.entity';
 
 @Controller('cars')
+@ApiTags('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
   @Post()
+  @ApiBody({ type: CreateCarDto })
   create(@Body() createCarDto: CreateCarDto) {
-    return this.carsService.create(createCarDto);
+    const car = {
+      ...new Car(),
+      ...createCarDto
+    }
+    return this.carsService.create(car);
   }
 
   @Get()
@@ -18,12 +26,14 @@ export class CarsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.carsService.findOne(+id);
+  async findOne(@Param('id') id: ObjectID) {
+    const car = await this.carsService.findOne(id);
+    if(!car) throw new NotFoundException()
+    return car;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.carsService.remove(+id);
+  remove(@Param('id') id: ObjectID) {
+    return this.carsService.remove(id);
   }
 }

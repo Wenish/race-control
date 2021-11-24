@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository } from 'typeorm';
+import { MongoRepository, ObjectID } from 'typeorm';
 import { CreateCarDto } from './dto/create-car.dto';
-import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
 
 @Injectable()
@@ -13,23 +12,18 @@ export class CarsService {
   ) {}
 
   create(createCarDto: CreateCarDto) {
-    const car = new Car()
-    return this.carsRepository.save(car)
+    return this.carsRepository.save(createCarDto)
   }
 
   findAll() {
-    return `This action returns all cars`;
+    return this.carsRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} car`;
+  findOne(id: ObjectID) {
+    return this.carsRepository.findOne(id)
   }
 
-  update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} car`;
+  remove(id: ObjectID) {
+    return this.carsRepository.delete(id)
   }
 }
