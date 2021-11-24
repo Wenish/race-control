@@ -1,5 +1,5 @@
 import { Command } from "@colyseus/command";
-import { BrakeState, CarState, FuelTankState, MatchState, MotorState, PlayerState, PositionState, TiresState, WingState } from "../match.state";
+import { BrakeState, CarState, FuelTankState, MatchState, EngineState, PlayerState, PositionState, TiresState, WingState } from "../match.state";
 
 interface OnJoinPayload {
     sessionId: string
@@ -11,7 +11,7 @@ export class OnJoinCommand extends Command<MatchState, OnJoinPayload> {
 
         const car = new CarState().assign({
             position: new PositionState(),
-            motor: new MotorState(),
+            engine: new EngineState(),
             tires: new TiresState(),
             brakes: new BrakeState(),
             fuelTank: new FuelTankState(),

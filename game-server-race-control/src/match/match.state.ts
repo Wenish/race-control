@@ -22,7 +22,7 @@ export class FuelTankState extends Schema {
     @type('number') maxHealth: number = 10000;
 }
 
-export class MotorState extends Schema {
+export class EngineState extends Schema {
     @type('number') power: number = 15
     @type('number') consumption: number = 1
 
@@ -61,7 +61,7 @@ export class CarState extends Schema {
 
     // Car Parts
     @type(FuelTankState) fuelTank: FuelTankState
-    @type(MotorState) motor: MotorState
+    @type(EngineState) engine: EngineState
     @type(TiresState) tires: TiresState
     @type(BrakeState) brakes: BrakeState
     @type(WingState) rearWing: WingState
