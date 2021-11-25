@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Car } from 'src/cars/entities/car.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { Car } from 'src/cars/entities/car.entity';
         useUnifiedTopology: true,
         useNewUrlParser: true,
         entities: [
-            Car
+            Car,
+            User
         ],
         ssl: true
       }),

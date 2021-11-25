@@ -7,6 +7,7 @@ import { DatabaseModule } from './database/database.module';
 import { CarsModule } from './cars/cars.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { BearerStrategy } from './guards/bearer.guard';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { BearerStrategy } from './guards/bearer.guard';
     DatabaseModule,
     AuthenticationModule,
     CarsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService, BearerStrategy],

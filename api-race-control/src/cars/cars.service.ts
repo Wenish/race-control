@@ -29,7 +29,7 @@ export class CarsService {
   findByUserId(userId: string) {
     return this.carsRepository.find({
       where: {
-        creator: userId,
+        userId,
       },
       order: {
         name: 'ASC',

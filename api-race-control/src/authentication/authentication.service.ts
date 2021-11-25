@@ -17,6 +17,6 @@ export class AuthenticationService {
         returnSecureToken: true,
       },
     );
-    return (await firstValueFrom(token)).data.idToken;
+    return (await firstValueFrom(token)).data;
   }
 }
