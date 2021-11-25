@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CarsService } from 'src/cars/cars.service';
 import { BearerGuard } from 'src/guards/bearer.guard';
@@ -10,7 +10,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly carsService: CarsService
-  ) {}
+  ) { }
 
   @Get(':id')
   @UseGuards(BearerGuard)
