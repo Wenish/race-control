@@ -24,6 +24,18 @@ async function bootstrap() {
     .setTitle('API Race Control')
     .setDescription('Hehe boyyy')
     .setVersion('1.0')
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'Bearer Authentication',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

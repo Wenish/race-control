@@ -9,10 +9,13 @@ export class CarsService {
   constructor(
     @InjectRepository(Car)
     private readonly carsRepository: MongoRepository<Car>,
-  ) {}
+  ) { }
 
-  create(createCarDto: CreateCarDto) {
-    return this.carsRepository.save(createCarDto)
+  create(createCarDto: CreateCarDto, userId: string) {
+    return this.carsRepository.save({
+      ...createCarDto,
+      userId
+    })
   }
 
   findAll() {
@@ -21,6 +24,17 @@ export class CarsService {
 
   findOne(id: ObjectID) {
     return this.carsRepository.findOne(id)
+  }
+
+  findByUserId(userId: string) {
+    return this.carsRepository.find({
+      where: {
+        creator: userId,
+      },
+      order: {
+        name: 'ASC',
+      },
+    });
   }
 
   remove(id: ObjectID) {
