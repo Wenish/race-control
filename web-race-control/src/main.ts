@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { initializeApp } from "firebase/app";
 import App from './App.vue'
 import router from './router'
+import './index.css';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,

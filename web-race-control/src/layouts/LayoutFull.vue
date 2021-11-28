@@ -36,4 +36,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+footer {
+  padding: 20px;
+}
 </style>
