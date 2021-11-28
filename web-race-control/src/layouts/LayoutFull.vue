@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from "vue";
+import { defineComponent } from "vue";
 import { getAuth } from '@firebase/auth';
-import { useAuth } from '@vueuse/firebase/useAuth'
+import { useAuth } from '../hooks/useAuth'
 
 export default defineComponent({
   name: "LayoutFull",

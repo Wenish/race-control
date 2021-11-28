@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@vueuse/core": "^7.1.2",
-    "@vueuse/firebase": "^7.1.2",
     "firebase": "^9.5.0",
     "firebaseui": "^0.600.0",
     "vue": "^3.2.16",
