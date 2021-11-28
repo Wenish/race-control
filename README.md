@@ -25,7 +25,8 @@ Test Server: [game-server-race-control.herokuapp.com](https://game-server-race-c
 Tech:
 
 - [Node](https://nodejs.org/)
-- [Colyseus](https://colyseus.io/)
+- [NestJs](https://nestjs.com/)
+- [MongoDB](https://cloud.mongodb.com/)
 
 Target Audience: Server Hoster
 
