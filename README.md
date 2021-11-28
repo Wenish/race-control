@@ -41,7 +41,8 @@ Tech:
 
 - [Node](https://nodejs.org/)
 - [Vue 3](https://v3.vuejs.org/)
+- [Vite](https://vitejs.dev/)
 
-Target Audience: Server Hoster
+Target Audience: Enduser
 
 Test Server: [race-control-2a09a.web.app/](https://race-control-2a09a.web.app/)
