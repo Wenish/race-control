@@ -30,3 +30,18 @@ Tech:
 Target Audience: Server Hoster
 
 Test Server: [api-race-control.herokuapp.com](https://api-race-control.herokuapp.com/)
+
+## [WEB](https://github.com/Wenish/race-control/tree/main/web-race-control)
+
+[![.github/workflows/web-build.yml](https://github.com/Wenish/race-control/actions/workflows/web-build.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/web-build.yml)
+
+[![.github/workflows/web-firebase-deploy.yml](https://github.com/Wenish/race-control/actions/workflows/web-firebase-deploy.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/web-firebase-deploy.yml)
+
+Tech:
+
+- [Node](https://nodejs.org/)
+- [Vue 3](https://v3.vuejs.org/)
+
+Target Audience: Server Hoster
+
+Test Server: [race-control-2a09a.web.app/](https://race-control-2a09a.web.app/)
