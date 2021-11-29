@@ -9,8 +9,8 @@
       <slot></slot>
     </main>
     <footer>
+      <div v-if="isAuthenticated">Logged in as {{ user?.email }}</div>
       <p>© 2021 Jonas Voland</p>
-      <pre v-if="isAuthenticated">{{ user }}</pre>
     </footer>
   </div>
 </template>
