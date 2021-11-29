@@ -6,7 +6,6 @@
       </div>
       <div class="bottom">
         <div class="description">{{ description }}</div>
-        <button>Buy me</button>
       </div>
       <div class="price">€{{ amount / 100 }}</div>
     </div>
