@@ -30,13 +30,14 @@ export default defineComponent({
     const auth = getAuth();
     const router = useRouter();
 
-    const uiConfig = {
+    const uiConfig: firebaseui.auth.Config = {
       callbacks: {
         signInSuccessWithAuthResult: () => false,
       },
       signInOptions: [
         {
           provider: EmailAuthProvider.PROVIDER_ID,
+          requireDisplayName: true
         },
       ],
       tosUrl: "/terms-of-service",

@@ -9,7 +9,7 @@
       <slot></slot>
     </main>
     <footer>
-      <div v-if="isAuthenticated">Logged in as {{ user?.email }}</div>
+      <div v-if="isAuthenticated">Logged in as {{ user?.displayName }}</div>
       <p>© 2021 Jonas Voland</p>
     </footer>
   </div>
