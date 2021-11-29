@@ -41,7 +41,9 @@ export default defineComponent({
     },
   },
   async setup(props) {
-    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY, {
+      apiVersion: '2020-08-27'
+    });
     const auth = getAuth()
     const { user } = useAuth(auth)
     const startCheckout = async () => {
