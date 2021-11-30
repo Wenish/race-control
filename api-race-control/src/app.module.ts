@@ -8,6 +8,7 @@ import { CarsModule } from './cars/cars.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { BearerStrategy } from './guards/bearer.guard';
 import { UsersModule } from './users/users.module';
+import { StoreModule } from './store/store.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UsersModule } from './users/users.module';
     AuthenticationModule,
     CarsModule,
     UsersModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService, BearerStrategy],

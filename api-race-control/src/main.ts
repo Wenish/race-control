@@ -40,6 +40,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  app.enableCors();
+
   /* enable validation with automatic parsing */
   app.useGlobalPipes(
     new ValidationPipe({

@@ -9,6 +9,7 @@ declare module '*.vue' {
 
 // add env variable here for IntelliSense autocomplete
 interface ImportMetaEnv extends Readonly<Record<string, string | boolean | undefined>> {
+  readonly VITE_RACE_CONTROL_API_HOST: string
   readonly VITE_FIREBASE_API_KEY: string
   readonly VITE_FIREBASE_AUTH_DOMAIN: string
   readonly VITE_FIREBASE_PROJECT_ID: string

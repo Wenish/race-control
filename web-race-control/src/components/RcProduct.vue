@@ -16,6 +16,7 @@
 import { defineComponent } from "vue";
 import { loadStripe } from '@stripe/stripe-js';
 import { getAuth } from '@firebase/auth';
+import { useFetch } from '@vueuse/core'
 import { useAuth } from '../hooks/useAuth'
 
 export default defineComponent({
@@ -47,15 +48,24 @@ export default defineComponent({
     const auth = getAuth()
     const { user } = useAuth(auth)
     const startCheckout = async () => {
+      const myToken = await user.value?.getIdToken()
+      const response = await fetch(`${import.meta.env.VITE_RACE_CONTROL_API_HOST}/store/create-checkout-session`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${myToken}`
+          },
+          body: JSON.stringify({
+            productId: props.id
+          }),
+        })
+      const session = await response.json();
       if (!user.value?.email) {
         alert('No Email on user profile')
         return;
       }
       const res = await stripe?.redirectToCheckout({
-        items: [{ sku: props.id, quantity: 1 }],
-        successUrl: window.location + '/success',
-        cancelUrl: window.location + '/cancel',
-        customerEmail: user.value.email
+        sessionId: session.id
       })
 
       if (res?.error) {
@@ -93,7 +103,7 @@ export default defineComponent({
   background-color: hsl(214deg 23% 38%);
 }
 
-.container:hover > .bottom  {
+.container:hover > .bottom {
   background-color: hsl(211deg 20% 50%);
 }
 
