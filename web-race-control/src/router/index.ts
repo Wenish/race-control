@@ -17,6 +17,14 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
+        path: "/success",
+        name: "PageSuccess",
+        component: () => import("../pages/PageSuccess.vue"),
+        meta: {
+            title: "Success"
+        },
+    },
+    {
         path: "/login",
         name: "PageLogin",
         component: () => import("../pages/PageLogin.vue"),
