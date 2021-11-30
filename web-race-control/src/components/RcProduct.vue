@@ -53,6 +53,7 @@ export default defineComponent({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": 'no-cors',
             "Authorization": `Bearer ${myToken}`
           },
           body: JSON.stringify({
