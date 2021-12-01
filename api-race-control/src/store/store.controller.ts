@@ -5,6 +5,8 @@ import { User, FirebaseUser } from 'src/decorators/user.decorator';
 import { BearerGuard } from 'src/guards/bearer.guard';
 import { Stripe } from 'stripe';
 import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
+import * as admin from 'firebase-admin';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('store')
 @ApiTags('store')
@@ -12,7 +14,7 @@ export class StoreController {
 
     private stripe: Stripe;
 
-    constructor(private configService: ConfigService) {
+    constructor(private configService: ConfigService, private usersService: UsersService) {
         const apiKey = this.configService.get('stripe.privateKey')
         this.stripe = new Stripe(apiKey, { apiVersion: '2020-08-27' })
     }
@@ -52,18 +54,10 @@ export class StoreController {
         try {
             event = this.stripe.webhooks.constructEvent(request.rawBody, stripeSignature, endpointSecret);
         } catch (err) {
-            console.log(err)
             throw new HttpException(`Webhook Error: ${err.message}`, 400);
         }
         switch (event.type) {
-            case 'payment_intent.succeeded':
-                const intent: any = event.data.object
-                console.log('EVENT', event.type)
-                console.log(intent)
-                console.log(intent.charges)
-                break;
             case 'checkout.session.completed': {
-                console.log('EVENT', event.type)
                 const eventObject: any = event.data.object;
                 // Save an order in your database, marked as 'awaiting payment'
                 // createOrder(session);
@@ -77,8 +71,11 @@ export class StoreController {
                 if (isSessionPayed) {
                     // Fullfill order
                     const session = await this.stripe.checkout.sessions.retrieve(eventObject.id)
-                    console.log(session.metadata)
-                    console.log(session.metadata.productId)
+                    const { uid } = await admin.auth().getUserByEmail(session.customer_email);
+                    const productId = session.metadata.productId;
+                    const product = await this.stripe.products.retrieve(productId);
+                    const pointsToAdd = parseInt(product.metadata.points, 10) + parseInt(product.metadata.pointsBonus, 10)
+                    await this.usersService.addRaceControlPoints(uid, pointsToAdd)
                 }
 
                 break;
