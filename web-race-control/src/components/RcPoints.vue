@@ -4,8 +4,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useAuth } from "../hooks/useAuth";
-import { getAuth } from "@firebase/auth";
 import { useUser } from "../hooks/useUser";
 
 export default defineComponent({
