@@ -35,7 +35,10 @@ export class StoreController {
             }],
             success_url: `${origin}/success`,
             cancel_url: `${origin}/store`,
-            customer_email: user.email
+            customer_email: user.email,
+            metadata: {
+                productId: product.id
+            }
         })
         return session
     }
@@ -52,14 +55,34 @@ export class StoreController {
             console.log(err)
             throw new HttpException(`Webhook Error: ${err.message}`, 400);
         }
-
-        let intent = null;
         switch (event.type) {
             case 'payment_intent.succeeded':
-                intent = event.data.object;
-                console.log(event.type)
-                console.log("Succeeded:", intent.id);
+                const intent: any = event.data.object
+                console.log('EVENT', event.type)
+                console.log(intent)
+                console.log(intent.charges)
                 break;
+            case 'checkout.session.completed': {
+                console.log('EVENT', event.type)
+                const eventObject: any = event.data.object;
+                // Save an order in your database, marked as 'awaiting payment'
+                // createOrder(session);
+
+                // Check if the order is paid (e.g., from a card payment)
+                //
+                // A delayed notification payment will have an `unpaid` status, as
+                // you're still waiting for funds to be transferred from the customer's
+                // account.
+                const isSessionPayed = eventObject.payment_status === 'paid'
+                if (isSessionPayed) {
+                    // Fullfill order
+                    const session = await this.stripe.checkout.sessions.retrieve(eventObject.id)
+                    console.log(session.metadata)
+                    console.log(session.metadata.productId)
+                }
+
+                break;
+            }
         }
 
     }
