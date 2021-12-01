@@ -16,7 +16,6 @@
 import { defineComponent } from "vue";
 import { loadStripe } from '@stripe/stripe-js';
 import { getAuth } from '@firebase/auth';
-import { useFetch } from '@vueuse/core'
 import { useAuth } from '../hooks/useAuth'
 
 export default defineComponent({
