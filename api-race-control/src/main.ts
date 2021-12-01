@@ -4,6 +4,9 @@ import { NestFactory } from '@nestjs/core';
 import * as admin from 'firebase-admin';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { json } from 'body-parser';
+
+import * as cloneBuffer from 'clone-buffer'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -41,6 +44,16 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors();
+
+  app.use(json({
+    verify: (req: any, res, buf, encoding) => {
+      // important to store rawBody for Stripe signature verification
+      if (req.headers['stripe-signature'] && Buffer.isBuffer(buf)) {
+        req.rawBody = cloneBuffer(buf);
+      }
+      return true;
+    },
+  }));
 
   /* enable validation with automatic parsing */
   app.useGlobalPipes(

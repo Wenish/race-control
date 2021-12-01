@@ -31,6 +31,7 @@
     "@nestjs/typeorm": "^8.0.2",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.2",
+    "clone-buffer": "^1.0.0",
     "firebase-admin": "^10.0.0",
     "mongodb": "^3.7.3",
     "passport-http-bearer": "^1.0.1",

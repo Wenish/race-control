@@ -1,4 +1,4 @@
-import { Body, Controller, Headers, HostParam, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Headers, HostParam, HttpException, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { User, FirebaseUser } from 'src/decorators/user.decorator';
@@ -10,8 +10,11 @@ import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
 @ApiTags('store')
 export class StoreController {
 
-    constructor(private configService: ConfigService) {
+    private stripe: Stripe;
 
+    constructor(private configService: ConfigService) {
+        const apiKey = this.configService.get('stripe.privateKey')
+        this.stripe = new Stripe(apiKey, { apiVersion: '2020-08-27' })
     }
 
     @Post('/create-checkout-session')
@@ -20,12 +23,10 @@ export class StoreController {
     @ApiBody({ type: CreateCheckoutSessionDto })
     async createCheckoutSession(@Body() createCheckoutSessionDto: CreateCheckoutSessionDto, @User() user: FirebaseUser, @Headers() headers) {
         const origin = headers?.origin
-        const apiKey = this.configService.get('stripe.privateKey')
-        const stripe = new Stripe(apiKey, { apiVersion: '2020-08-27' })
-        const product = await stripe.products.retrieve(createCheckoutSessionDto.productId, { expand: ['price']})
-        const price = await stripe.prices.list({product: product.id })
+        const product = await this.stripe.products.retrieve(createCheckoutSessionDto.productId, { expand: ['price'] })
+        const price = await this.stripe.prices.list({ product: product.id })
 
-        const session = await stripe.checkout.sessions.create({
+        const session = await this.stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
             line_items: [{
@@ -38,4 +39,29 @@ export class StoreController {
         })
         return session
     }
+
+    @Post('/webhook-stripe')
+    async webhookStripe(@Headers('stripe-signature') stripeSignature, @Req() request: any) {
+        const endpointSecret = this.configService.get('stripe.webhookEndpointSecret')
+
+        let event: Stripe.Event;
+
+        try {
+            event = this.stripe.webhooks.constructEvent(request.rawBody, stripeSignature, endpointSecret);
+        } catch (err) {
+            console.log(err)
+            throw new HttpException(`Webhook Error: ${err.message}`, 400);
+        }
+
+        let intent = null;
+        switch (event.type) {
+            case 'payment_intent.succeeded':
+                intent = event.data.object;
+                console.log(event.type)
+                console.log("Succeeded:", intent.id);
+                break;
+        }
+
+    }
+
 }

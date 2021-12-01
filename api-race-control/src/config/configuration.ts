@@ -9,6 +9,7 @@ export default () => ({
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
   },
   stripe: {
-    privateKey: process.env.STRIPE_PRIVATE_KEY
+    privateKey: process.env.STRIPE_PRIVATE_KEY,
+    webhookEndpointSecret: process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET
   }
 });
