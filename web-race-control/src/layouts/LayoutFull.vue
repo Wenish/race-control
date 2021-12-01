@@ -4,6 +4,7 @@
         <router-link to="/">Home</router-link><br>
         <router-link to="/store">Store</router-link><br>
         <router-link to="/logout" v-if="isAuthenticated">Logout</router-link>
+        <div v-if="isAuthenticated"> My RACE CONTROL Points: <RcPoints></RcPoints></div>
     </header>
     <main>
       <slot></slot>
@@ -16,13 +17,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from "vue";
 import { getAuth } from '@firebase/auth';
 import { useAuth } from '../hooks/useAuth'
 
 export default defineComponent({
   name: "LayoutFull",
   components: {
+    RcPoints: defineAsyncComponent(() => import('../components/RcPoints.vue')),
   },
   setup() {
       const auth = getAuth()
