@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { useUser } from "../hooks/useUser";
 
 export default defineComponent({
