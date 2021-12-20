@@ -9,9 +9,7 @@
         </div>
         <div class="play-container">
             <router-link to="/play">
-                <div class="play">
-                    Play
-                </div>
+                <div class="play">Play</div>
             </router-link>
         </div>
         <div>
@@ -84,11 +82,15 @@ export default defineComponent({
 
 a {
     text-decoration: none;
-    color: white;
+    color: hsl(0deg 0% 70%);
 }
 
 a:hover {
-    color: hsl(0deg 0% 70%);
+    color: white;
+}
+
+a.router-link-exact-active {
+    color: hsl(53deg 100% 43%);
 }
 
 .coin {
@@ -101,28 +103,41 @@ a:hover {
 
 .play-container {
     height: 100%;
+    clip-path: polygon(0% 0, 100% 0, 85% 100%, 15% 100%);
 }
 
-.play, .play-container {
+.play {
     height: 100%;
     font-weight: bold;
     font-size: 25px;
-    background-color: white;
+    background-color: hsl(0deg 0% 70%);
+    color: hsl(210deg 32% 30%);
     display: grid;
     align-content: center;
     clip-path: polygon(0% 0, 100% 0, 85% 100%, 15% 100%);
 }
 
+/*
+
 .play-container > a {
     color: hsl(210deg 32% 30%);
     height: 60px;
 }
+*/
+
+/*
 
 .play:hover {
     background-color: hsl(0deg 0% 70%);
 }
+*/
 
-.play:hover > a {
-    color: hsl(210deg 32% 20%);
+.play:hover {
+    color: white;
+    background-color: hsl(0deg 0% 50%);
+}
+
+a.router-link-exact-active > .play {
+    color: black;
 }
 </style>
