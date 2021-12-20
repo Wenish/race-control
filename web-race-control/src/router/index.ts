@@ -8,11 +8,25 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../pages/PageHome.vue"),
     },
     {
+        path: "/play",
+        name: "PagePlay",
+        component: () => import("../pages/PagePlay.vue"),
+    },
+    {
         path: "/store",
         name: "PageStore",
         component: () => import("../pages/PageStore.vue"),
         meta: {
             title: "Store",
+            requiresAuth: true,
+        },
+    },
+    {
+        path: "/points",
+        name: "PagePoints",
+        component: () => import("../pages/PagePoints.vue"),
+        meta: {
+            title: "Purchase Points",
             requiresAuth: true,
         },
     },

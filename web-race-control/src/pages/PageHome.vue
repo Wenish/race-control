@@ -2,6 +2,7 @@
   <LayoutFull>
     <div>
       Hey Its me Page Home
+      
     </div>
   </LayoutFull>
 </template>

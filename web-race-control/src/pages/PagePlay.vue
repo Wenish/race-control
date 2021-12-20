@@ -1,7 +1,7 @@
 <template>
   <LayoutFull>
     <div>
-      Hey Its me Page Store
+      Hey Its me Page Play
       
     </div>
   </LayoutFull>
@@ -11,7 +11,7 @@
 import { defineAsyncComponent, defineComponent } from "vue";
 
 export default defineComponent({
-  name: "PageStore",
+  name: "PagePlay",
   components: {
     LayoutFull: defineAsyncComponent(
       () => import("../layouts/LayoutFull.vue")

@@ -1,10 +1,7 @@
 <template>
-  <div class="min-h-screen grid layout">
+  <div class="layout">
     <header>
-        <router-link to="/">Home</router-link><br>
-        <router-link to="/store">Store</router-link><br>
-        <router-link to="/logout" v-if="isAuthenticated">Logout</router-link>
-        <div v-if="isAuthenticated"> My RACE CONTROL Points: <RcPoints></RcPoints></div>
+      <TheHeader></TheHeader>
     </header>
     <main>
       <slot></slot>
@@ -12,6 +9,7 @@
     <footer>
       <div v-if="isAuthenticated">Logged in as {{ user?.displayName }}</div>
       <p>© 2021 Jonas Voland</p>
+      <router-link to="/logout" v-if="isAuthenticated">Logout</router-link>
     </footer>
   </div>
 </template>
@@ -24,20 +22,33 @@ import { useAuth } from '../hooks/useAuth'
 export default defineComponent({
   name: "LayoutFull",
   components: {
-    RcPoints: defineAsyncComponent(() => import('../components/RcPoints.vue')),
+    TheHeader: defineAsyncComponent(() => import('../components/TheHeader.vue'))
   },
   setup() {
-      const auth = getAuth()
-      const { isAuthenticated, user } = useAuth(auth)
-      return {
-          isAuthenticated,
-          user
-      }
+    const auth = getAuth()
+    const { isAuthenticated, user } = useAuth(auth)
+    return {
+      isAuthenticated,
+      user
+    }
   }
 });
 </script>
 
 <style scoped>
+.layout {
+  min-height: 100vh;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 0px 0px;
+  grid-template-rows: auto 1fr auto;
+}
+
+main {
+  padding: 20px;
+}
+
 footer {
   padding: 20px;
 }
