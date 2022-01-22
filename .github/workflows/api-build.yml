@@ -4,15 +4,13 @@ name: 🦁 API Build
   push:
     paths:
       - 'api-race-control/**'
-defaults:
-  run:
-    working-directory: api-race-control
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
+        working-directory: api-race-control
       - uses: actions/upload-artifact@v2
         with:
           name: build-race-control-api
