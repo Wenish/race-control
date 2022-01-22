@@ -13,3 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-race-control-game-server
+          path: |
+            game-server-race-control/package.json
+            game-server-race-control/dist/
+  deploy-heroku:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-race-control-game-server
+      - name: Display structure of downloaded files
+        run: ls -R
