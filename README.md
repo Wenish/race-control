@@ -32,8 +32,6 @@ Test Server: [api-race-control.herokuapp.com](https://api-race-control.herokuapp
 
 [![.github/workflows/web-build.yml](https://github.com/Wenish/race-control/actions/workflows/web-build.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/web-build.yml)
 
-[![.github/workflows/web-firebase-deploy.yml](https://github.com/Wenish/race-control/actions/workflows/web-firebase-deploy.yml/badge.svg)](https://github.com/Wenish/race-control/actions/workflows/web-firebase-deploy.yml)
-
 Tech:
 
 - [Node](https://nodejs.org/)
