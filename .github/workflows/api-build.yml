@@ -4,6 +4,9 @@ name: 🦁 API Build
   push:
     paths:
       - 'api-race-control/**'
+defaults:
+  run:
+    working-directory: api-race-control
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,6 +25,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: build-race-control-api
@@ -32,3 +36,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME_API}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "api-race-control"
