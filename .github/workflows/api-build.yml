@@ -17,5 +17,5 @@ jobs:
         with:
           name: build-race-control-api
           path: |
-            package.json
-            dist/
+            api-race-control/package.json
+            api-race-control/dist/
