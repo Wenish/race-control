@@ -18,6 +18,7 @@ jobs:
           name: build-race-control-api
           path: |
             api-race-control/package.json
+            api-race-control/package-lock.json
             api-race-control/dist/
   deploy-heroku:
     runs-on: ubuntu-latest
