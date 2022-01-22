@@ -19,3 +19,13 @@ jobs:
           path: |
             api-race-control/package.json
             api-race-control/dist/
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-race-control-api
+      - name: Display structure of downloaded files
+        run: ls -R
