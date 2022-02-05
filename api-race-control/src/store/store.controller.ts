@@ -72,10 +72,11 @@ export class StoreController {
                     // Fullfill order
                     const session = await this.stripe.checkout.sessions.retrieve(eventObject.id)
                     const { uid } = await admin.auth().getUserByEmail(session.customer_email);
+                    const user = await this.usersService.findOneByUserId(uid)
                     const productId = session.metadata.productId;
                     const product = await this.stripe.products.retrieve(productId);
                     const pointsToAdd = parseInt(product.metadata.points, 10) + parseInt(product.metadata.pointsBonus, 10)
-                    await this.usersService.addRaceControlPoints(uid, pointsToAdd)
+                    await this.usersService.addRaceControlPoints(user.id, pointsToAdd)
                 }
 
                 break;

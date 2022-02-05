@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
@@ -9,10 +9,19 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { BearerStrategy } from './guards/bearer.guard';
 import { UsersModule } from './users/users.module';
 import { StoreModule } from './store/store.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('database.mongodb.uri'),
+        dbName: configService.get<string>('database.mongodb.name'),
+      }),
+      inject: [ConfigService],
+    }),
     DatabaseModule,
     AuthenticationModule,
     CarsModule,
