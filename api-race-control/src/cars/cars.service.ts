@@ -1,43 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository, ObjectID } from 'typeorm';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { CreateCarDto } from './dto/create-car.dto';
-import { Car } from './entities/car.entity';
+import { Car } from './schemas/car.schema';
+import { CarDocument } from './schemas/car.schema';
 
 @Injectable()
 export class CarsService {
   constructor(
-    @InjectRepository(Car)
-    private readonly carsRepository: MongoRepository<Car>,
+    @InjectModel(Car.name)
+    private carModel: Model<CarDocument>
   ) { }
 
   create(createCarDto: CreateCarDto, userId: string) {
-    return this.carsRepository.save({
+    return new this.carModel({
       ...createCarDto,
-      userId
-    })
+      user: userId
+    }).save()
   }
 
   findAll() {
-    return this.carsRepository.find()
+    return this.carModel.find()
   }
 
-  findOne(id: ObjectID) {
-    return this.carsRepository.findOne(id)
+  findOne(id) {
+    return this.carModel.findById(id)
   }
 
-  findByUserId(userId: string) {
-    return this.carsRepository.find({
-      where: {
-        userId,
-      },
-      order: {
-        name: 'ASC',
-      },
+  findByUserId(userId) {
+    console.log(userId)
+    return this.carModel.find({
+      user: new Types.ObjectId(userId)
     });
   }
 
-  remove(id: ObjectID) {
-    return this.carsRepository.delete(id)
+  remove(id) {
+    return this.carModel.findByIdAndDelete(id)
   }
 }

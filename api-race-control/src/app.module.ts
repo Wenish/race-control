@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
-import { DatabaseModule } from './database/database.module';
 import { CarsModule } from './cars/cars.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { BearerStrategy } from './guards/bearer.guard';
@@ -22,7 +21,6 @@ import { MongooseModule } from '@nestjs/mongoose';
       }),
       inject: [ConfigService],
     }),
-    DatabaseModule,
     AuthenticationModule,
     CarsModule,
     UsersModule,

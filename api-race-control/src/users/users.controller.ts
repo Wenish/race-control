@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CarsService } from 'src/cars/cars.service';
 import { BearerGuard } from 'src/guards/bearer.guard';
+import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UsersService } from './users.service';
 
@@ -40,7 +41,7 @@ export class UsersController {
   @Get(':id/cars')
   //@UseGuards(BearerGuard)
   @ApiBearerAuth('Bearer Authentication')
-  async getUserCars(@Param('id') userId: string) {
+  async getUserCars(@Param('id', new ParseObjectIdPipe()) userId: string) {
     return this.carsService.findByUserId(userId);
   }
 }
