@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CarsService } from 'src/cars/cars.service';
 import { BearerGuard } from 'src/guards/bearer.guard';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 import { CreateUserDto } from './dto/createUser.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -36,6 +37,11 @@ export class UsersController {
   //@ApiBearerAuth('Bearer Authentication')
   getOneProfile(@Param('id') id: string) {
     return this.usersService.getFirebaseProfileData(id);
+  }
+
+  @Patch(':id')
+  patch(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Get(':id/cars')
