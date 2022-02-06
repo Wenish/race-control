@@ -26,21 +26,21 @@ export class UsersController {
 
   @Get(':id')
   //@UseGuards(BearerGuard)
-  @ApiBearerAuth('Bearer Authentication')
+  //@ApiBearerAuth('Bearer Authentication')
   getOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @Get(':id/profile')
   //@UseGuards(BearerGuard)
-  @ApiBearerAuth('Bearer Authentication')
+  //@ApiBearerAuth('Bearer Authentication')
   getOneProfile(@Param('id') id: string) {
     return this.usersService.getFirebaseProfileData(id);
   }
 
   @Get(':id/cars')
   //@UseGuards(BearerGuard)
-  @ApiBearerAuth('Bearer Authentication')
+  //@ApiBearerAuth('Bearer Authentication')
   async getUserCars(@Param('id', new ParseObjectIdPipe()) userId: string) {
     return this.carsService.findByUserId(userId);
   }
