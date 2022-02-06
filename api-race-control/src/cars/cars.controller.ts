@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Param, Delete, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, NotFoundException, UseGuards, Patch } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { FirebaseUser, User } from 'src/decorators/user.decorator';
 import { BearerGuard } from 'src/guards/bearer.guard';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
-import { Car } from './schemas/car.schema';
+import { UpdateCarDto } from './dto/update-car.dto';
 
 @Controller('cars')
 @ApiTags('cars')
@@ -19,11 +19,7 @@ export class CarsController {
     @Body() createCarDto: CreateCarDto,
     @User() user: FirebaseUser,
   ) {
-    const car = {
-      ...new Car(),
-      ...createCarDto
-    }
-    return this.carsService.create(car, '61fef048293494df2211f22b');
+    return this.carsService.create(createCarDto);
   }
 
   @Get()
@@ -40,6 +36,11 @@ export class CarsController {
     const car = await this.carsService.findOne(id);
     if (!car) throw new NotFoundException()
     return car;
+  }
+
+  @Patch(':id')
+  patch(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
+    return this.carsService.update(id, updateCarDto);
   }
 
   @Delete(':id')

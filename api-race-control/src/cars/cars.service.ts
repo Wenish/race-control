@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, Types } from 'mongoose';
 import { CreateCarDto } from './dto/create-car.dto';
+import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './schemas/car.schema';
 import { CarDocument } from './schemas/car.schema';
 
@@ -12,11 +13,8 @@ export class CarsService {
     private carModel: Model<CarDocument>
   ) { }
 
-  create(createCarDto: CreateCarDto, userId: string) {
-    return new this.carModel({
-      ...createCarDto,
-      user: userId
-    }).save()
+  create(createCarDto: CreateCarDto) {
+    return new this.carModel(createCarDto).save()
   }
 
   findAll() {
@@ -32,6 +30,10 @@ export class CarsService {
     return this.carModel.find({
       user: new Types.ObjectId(userId)
     });
+  }
+
+  update(id: string, updateCarDto: UpdateCarDto) {
+    return this.carModel.findByIdAndUpdate(id, updateCarDto, { new: true });
   }
 
   remove(id) {

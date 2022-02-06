@@ -10,6 +10,6 @@ export class ParseObjectIdPipe implements PipeTransform<any, Types.ObjectId> {
             throw new BadRequestException('Invalid ObjectId');
         }
 
-        return value;
+        return new Types.ObjectId(value);
     }
 }
